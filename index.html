@@ -6,25 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>台南四日遊 2026</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
       rel="stylesheet">
     <style>
       :root {
-        --bg: #fbf9f4;
-        --bg-dark: #f2eee2;
-        --card: #ffffff;
-        --ink: #2c2e2a;
-        --ink-mid: #5e625d;
-        --ink-light: #8e948d;
-        --green: #3a5a40;
-        --green-light: #e9eddf;
-        --red: #a63d40;
-        /* 復古印泥紅 */
-        --amber: #e67e22;
-        --rust: #c0492b;
-        --indigo: #3d5a80;
-        --shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-        --radius: 12px;
+        --paper: #f5ede0;
+        --paper-dark: #e8dac8;
+        --paper-warm: #fdf6ec;
+        --ink: #2c1a0e;
+        --ink-mid: #5c3d22;
+        --ink-light: #9c7a58;
+        --ink-ghost: #c4a882;
+        --vermillion: #c0392b;
+        --vermillion-light: #e74c3c;
+        --gold: #b8860b;
+        --gold-light: #d4a017;
+        --jade: #2d6a4f;
+        --indigo: #2c3e6b;
+        --cream: #fef9f0;
+        --warn-bg: #fff3cd;
+        --warn-border: #c8962a;
+        --line: #d4b896;
+        --shadow-warm: 0 4px 20px rgba(44, 26, 14, 0.12);
+        --shadow-card: 0 2px 12px rgba(44, 26, 14, 0.10);
       }
 
       * {
@@ -36,885 +40,1792 @@
 
       body {
         font-family: 'Noto Sans TC', sans-serif;
-        background: var(--bg);
+        background: var(--paper);
         color: var(--ink);
-        line-height: 1.6;
-        padding-bottom: 60px;
+        min-height: 100vh;
+        padding-bottom: 40px;
+        /* Subtle paper texture via repeating gradient */
+        background-image:
+          repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(196, 168, 130, 0.07) 24px, rgba(196, 168, 130, 0.07) 25px),
+          repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(196, 168, 130, 0.04) 24px, rgba(196, 168, 130, 0.04) 25px);
       }
 
-      /* ── HEADER ── */
+      /* ───── HEADER ───── */
       .header {
-        background: var(--green);
-        padding: 40px 20px 30px;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0;
+        position: relative;
+        overflow: hidden;
       }
 
-      .header-title-group {
-        flex: 1;
+      .header-inner {
+        padding: 32px 20px 24px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Decorative border lines */
+      .header::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        border: 1px solid rgba(212, 160, 23, 0.3);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .header-deco {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(ellipse at 85% 20%, rgba(184, 134, 11, 0.18) 0%, transparent 60%),
+          radial-gradient(ellipse at 10% 80%, rgba(192, 57, 43, 0.12) 0%, transparent 50%);
+        z-index: 0;
       }
 
       .header-eyebrow {
         font-size: 11px;
         letter-spacing: 4px;
-        opacity: 0.7;
-        margin-bottom: 5px;
+        color: var(--gold-light);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-weight: 300;
       }
 
       .header-title {
         font-family: 'Noto Serif TC', serif;
-        font-size: 34px;
+        font-size: 32px;
         font-weight: 900;
-        letter-spacing: 5px;
+        letter-spacing: 4px;
+        line-height: 1.1;
+        margin-bottom: 4px;
+        /* Vintage pressed-ink effect */
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
       }
 
-      .header-sub {
+      .header-title span {
+        color: var(--gold-light);
+      }
+
+      .header-subtitle {
+        font-size: 12px;
+        color: var(--ink-ghost);
+        letter-spacing: 2px;
+        margin-bottom: 18px;
+      }
+
+      .header-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .chip {
+        background: rgba(212, 160, 23, 0.15);
+        border: 1px solid rgba(212, 160, 23, 0.4);
+        color: var(--gold-light);
         font-size: 11px;
-        opacity: 0.8;
+        padding: 4px 12px;
+        border-radius: 2px;
+        letter-spacing: 1px;
+        font-family: 'Noto Serif TC', serif;
+      }
+
+      /* ───── HEADER ACTION BUTTONS ───── */
+      .header-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+      }
+
+      .hdr-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'Noto Serif TC', serif;
+        font-size: 12px;
+        letter-spacing: 1px;
+        padding: 7px 14px;
+        border-radius: 2px;
+        text-decoration: none;
+        border: 1px solid;
+        transition: all 0.18s;
+        white-space: nowrap;
+      }
+
+      .hdr-btn-account {
+        background: rgba(192, 57, 43, 0.15);
+        border-color: rgba(192, 57, 43, 0.5);
+        color: #f4a49a;
+      }
+
+      .hdr-btn-account:active {
+        background: rgba(192, 57, 43, 0.3);
+      }
+
+      .hdr-btn-sheet {
+        background: rgba(212, 160, 23, 0.15);
+        border-color: rgba(212, 160, 23, 0.5);
+        color: var(--gold-light);
+      }
+
+      .hdr-btn-sheet:active {
+        background: rgba(212, 160, 23, 0.3);
+      }
+
+      /* ───── PACKING LIST ───── */
+      .pack-panel {
+        display: none;
+        padding: 20px 16px 30px;
+      }
+
+      .pack-panel.active {
+        display: block;
+      }
+
+      .pack-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .pack-seal {
+        width: 48px;
+        height: 48px;
+        border: 2px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .pack-seal-icon {
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .pack-title {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--ink);
         letter-spacing: 2px;
       }
 
-      .header-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 5px;
-      }
-
-      .btn-action {
-        text-decoration: none;
+      .pack-meta {
         font-size: 11px;
-        color: #fff;
-        background: rgba(255, 255, 255, 0.15);
-        padding: 8px 14px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        text-align: center;
+        color: var(--ink-light);
+        margin-top: 2px;
+      }
+
+      .pack-progress-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .pack-progress-label {
+        font-size: 11px;
+        color: var(--ink-light);
+        font-family: 'Noto Serif TC', serif;
+        white-space: nowrap;
+      }
+
+      .pack-progress-track {
+        flex: 1;
+        height: 4px;
+        background: var(--line);
+      }
+
+      .pack-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--jade), var(--gold));
+        transition: width 0.4s ease;
+        width: 0%;
+      }
+
+      .pack-progress-count {
+        font-size: 11px;
+        color: var(--jade);
         font-weight: 700;
-        transition: 0.2s;
+        white-space: nowrap;
       }
 
-      .btn-action:active {
-        background: #fff;
-        color: var(--green);
+      .pack-reset-btn {
+        display: block;
+        width: 100%;
+        background: none;
+        border: 1px solid var(--line);
+        color: var(--ink-light);
+        font-family: 'Noto Serif TC', serif;
+        font-size: 11px;
+        padding: 7px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        margin-bottom: 18px;
+        border-radius: 2px;
+        transition: all 0.15s;
       }
 
-      /* ── PROGRESS ── */
-      .prog-container {
-        margin: -15px 16px 0;
-        background: var(--card);
-        padding: 15px;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
+      .pack-reset-btn:active {
+        background: var(--paper-dark);
+      }
+
+      .pack-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .pack-grid.full {
+        grid-template-columns: 1fr;
+      }
+
+      .pack-section {
+        background: var(--cream);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 14px 12px;
+        box-shadow: var(--shadow-card);
         position: relative;
-        z-index: 10;
+        overflow: hidden;
       }
 
-      .prog-bar-wrap {
+      .pack-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 12px 12px 0;
+        border-color: transparent var(--paper) transparent transparent;
+      }
+
+      .pack-section-title {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+        background: var(--ink-mid);
+        display: inline-block;
+        padding: 3px 12px;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        border-radius: 1px;
+      }
+
+      .pack-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 0;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(212, 184, 150, 0.3);
+        transition: opacity 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .pack-item:last-child {
+        border-bottom: none;
+      }
+
+      .pack-item:active {
+        opacity: 0.6;
+      }
+
+      .pack-checkbox {
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--line);
+        border-radius: 1px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        transition: all 0.2s;
+        color: transparent;
+        background: white;
+      }
+
+      .pack-item.checked .pack-checkbox {
+        background: var(--jade);
+        border-color: var(--jade);
+        color: white;
+      }
+
+      .pack-item-label {
+        font-size: 13px;
+        color: var(--ink);
+        transition: all 0.2s;
+        line-height: 1.3;
+      }
+
+      .pack-item.checked .pack-item-label {
+        text-decoration: line-through;
+        color: var(--ink-ghost);
+      }
+
+      .pack-section.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .pack-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 8px;
+      }
+
+      .progress-strip {
+        background: var(--paper-dark);
+        border-bottom: 1px solid var(--line);
+        padding: 10px 20px;
         display: flex;
         align-items: center;
         gap: 12px;
       }
 
-      .prog-track {
+      .progress-label {
+        font-size: 11px;
+        color: var(--ink-light);
+        letter-spacing: 1px;
+        white-space: nowrap;
+        font-family: 'Noto Serif TC', serif;
+      }
+
+      .progress-track {
         flex: 1;
-        height: 6px;
-        background: #eee;
-        border-radius: 10px;
+        height: 4px;
+        background: var(--line);
+        border-radius: 0;
         overflow: hidden;
       }
 
-      .prog-fill {
+      .progress-fill {
         height: 100%;
-        background: var(--green);
+        background: linear-gradient(90deg, var(--vermillion), var(--gold));
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         width: 0%;
-        transition: width 0.6s ease;
       }
 
-      .prog-count {
+      .progress-count {
+        font-size: 11px;
+        color: var(--vermillion);
         font-weight: 700;
-        color: var(--green);
-        font-size: 13px;
-        font-family: 'Noto Serif TC';
+        white-space: nowrap;
       }
 
-      /* ── TABS ── */
-      .tabs {
-        display: flex;
-        padding: 25px 15px 10px;
-        gap: 6px;
+      /* ───── TABS ───── */
+      .tabs-wrap {
+        background: var(--ink);
         position: sticky;
         top: 0;
-        background: var(--bg);
         z-index: 100;
+        display: flex;
+        border-bottom: 2px solid var(--gold);
       }
 
-      .tab {
+      .tab-btn {
         flex: 1;
-        padding: 10px 0;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background: var(--card);
-        color: var(--ink-light);
-        text-align: center;
+        background: none;
+        border: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--ink-ghost);
+        padding: 12px 4px 10px;
+        cursor: pointer;
+        font-family: 'Noto Serif TC', serif;
+        transition: all 0.2s;
+        position: relative;
       }
 
-      .tab.active {
-        background: var(--green);
-        color: #fff;
-        border-color: var(--green);
+      .tab-btn:last-child {
+        border-right: none;
       }
 
-      .tab-num {
+      .tab-btn.active {
+        color: var(--gold-light);
+        background: rgba(212, 160, 23, 0.08);
+      }
+
+      .tab-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--gold-light);
+      }
+
+      .tab-day-num {
         display: block;
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 700;
-        font-family: 'Noto Serif TC';
+        letter-spacing: 1px;
+        line-height: 1;
+        margin-bottom: 2px;
       }
 
-      .tab-lbl {
+      .tab-day-label {
         display: block;
         font-size: 9px;
+        letter-spacing: 0.5px;
+        opacity: 0.8;
       }
 
-      /* ── DAY HEADER (印章風格) ── */
+      /* ───── DAY PANEL ───── */
       .day-panel {
         display: none;
-        padding: 0 16px;
       }
 
       .day-panel.active {
         display: block;
       }
 
-      .day-hd {
+      .day-header {
+        padding: 20px 20px 0;
         display: flex;
         align-items: center;
-        gap: 18px;
-        margin: 20px 0 25px;
+        gap: 12px;
       }
 
       .day-seal {
-        width: 55px;
-        height: 55px;
-        border: 2.5px solid var(--red);
+        width: 48px;
+        height: 48px;
+        border: 2px solid var(--vermillion);
+        border-radius: 50%;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: var(--red);
-        transform: rotate(-3deg);
-        position: relative;
+        flex-direction: column;
         flex-shrink: 0;
       }
 
-      .day-seal::after {
-        content: "";
-        position: absolute;
-        inset: 2px;
-        border: 1px solid var(--red);
-      }
-
-      .seal-zh {
-        font-family: 'Noto Serif TC';
-        font-size: 20px;
+      .day-seal-num {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 16px;
         font-weight: 900;
+        color: var(--vermillion);
+        line-height: 1;
       }
 
-      .seal-en {
-        font-size: 9px;
-        font-weight: 800;
+      .day-seal-text {
+        font-size: 8px;
+        color: var(--vermillion);
+        letter-spacing: 1px;
       }
 
-      .day-info-title {
-        font-family: 'Noto Serif TC';
-        font-size: 20px;
+      .day-info {}
+
+      .day-title {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 16px;
         font-weight: 700;
         color: var(--ink);
+        letter-spacing: 1px;
       }
 
-      /* ── WARNING ── */
-      .warn {
-        background: #fff9f0;
-        border: 1px solid #fbd38d;
-        border-left: 4px solid var(--red);
-        padding: 12px;
-        border-radius: 6px;
-        margin-bottom: 25px;
+      .day-meta {
+        font-size: 11px;
+        color: var(--ink-light);
+        margin-top: 2px;
+        letter-spacing: 0.5px;
       }
 
-      .warn-ttl {
-        font-size: 12px;
+      /* Warning */
+      .warn-box {
+        margin: 14px 16px 0;
+        background: var(--warn-bg);
+        border: 1px solid var(--warn-border);
+        border-left: 4px solid var(--warn-border);
+        border-radius: 2px;
+        padding: 11px 13px;
+      }
+
+      .warn-title {
+        font-size: 11px;
         font-weight: 700;
-        color: var(--red);
-        margin-bottom: 4px;
+        color: var(--warn-border);
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        font-family: 'Noto Serif TC', serif;
       }
 
       .warn-body {
         font-size: 12px;
-        color: #744210;
-        line-height: 1.6;
+        color: #6b4c00;
+        line-height: 1.65;
       }
 
-      /* ── TIMELINE ── */
-      .tl {
+      /* ───── TIMELINE ───── */
+      .timeline {
+        padding: 18px 16px 8px;
         position: relative;
-        padding-left: 10px;
       }
 
-      .tl::before {
-        content: "";
+      .timeline::before {
+        content: '';
         position: absolute;
-        left: 24px;
-        top: 0;
-        bottom: 0;
+        left: 52px;
+        top: 18px;
+        bottom: 8px;
         width: 1px;
-        background: #e2e8f0;
-        border-left: 1px dashed #cbd5e0;
+        background: repeating-linear-gradient(to bottom, var(--line) 0, var(--line) 5px, transparent 5px, transparent 10px);
       }
 
-      .ti {
+      .t-item {
         display: flex;
-        gap: 12px;
-        margin-bottom: 18px;
-        cursor: pointer;
-      }
-
-      .ti-time {
-        width: 42px;
-        text-align: right;
-        font-size: 10px;
-        color: var(--ink-light);
-        font-family: 'Noto Serif TC';
-        padding-top: 14px;
-        font-weight: 700;
-      }
-
-      .dot-box {
-        position: relative;
-        z-index: 2;
-        padding-top: 14px;
-      }
-
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #fff;
-        border: 2.5px solid #cbd5e0;
-        transition: 0.3s;
-      }
-
-      .ti.done .dot {
-        background: var(--green);
-        border-color: var(--green);
-      }
-
-      .ti.done .card {
-        opacity: 0.5;
-        filter: grayscale(0.8);
-        border-left-color: #cbd5e0 !important;
-      }
-
-      /* ── CARD ── */
-      .card {
-        flex: 1;
-        background: var(--card);
-        border-radius: var(--radius);
-        padding: 16px;
-        box-shadow: var(--shadow);
-        border-left: 5px solid #e2e8f0;
-        transition: 0.3s;
-      }
-
-      .ti.food .card {
-        border-left-color: var(--amber);
-      }
-
-      .ti.sight .card {
-        border-left-color: var(--green);
-      }
-
-      .ti.travel .card {
-        border-left-color: var(--ink-light);
-      }
-
-      .ti.snack .card {
-        border-left-color: var(--rust);
-      }
-
-      .ti.night .card {
-        border-left-color: var(--indigo);
-      }
-
-      .iname {
-        font-family: 'Noto Serif TC';
-        font-size: 17px;
-        font-weight: 700;
-        color: var(--ink);
-        margin-bottom: 5px;
-      }
-
-      .tags {
-        display: flex;
-        gap: 6px;
-        margin-bottom: 10px;
-      }
-
-      .tag {
-        font-size: 9px;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background: var(--bg-dark);
-        color: var(--ink-mid);
-        font-weight: 600;
-      }
-
-      .note {
-        font-size: 11.5px;
-        color: var(--ink-mid);
-        line-height: 1.6;
+        gap: 0;
         margin-bottom: 12px;
+        position: relative;
+        animation: fadeSlideUp 0.3s ease both;
       }
 
-      .note .ok {
-        color: var(--green);
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .t-item:nth-child(1) {
+        animation-delay: 0.02s;
+      }
+
+      .t-item:nth-child(2) {
+        animation-delay: 0.06s;
+      }
+
+      .t-item:nth-child(3) {
+        animation-delay: 0.10s;
+      }
+
+      .t-item:nth-child(4) {
+        animation-delay: 0.14s;
+      }
+
+      .t-item:nth-child(5) {
+        animation-delay: 0.18s;
+      }
+
+      .t-item:nth-child(6) {
+        animation-delay: 0.22s;
+      }
+
+      .t-item:nth-child(7) {
+        animation-delay: 0.26s;
+      }
+
+      .t-item:nth-child(8) {
+        animation-delay: 0.30s;
+      }
+
+      .t-item:nth-child(9) {
+        animation-delay: 0.34s;
+      }
+
+      .t-item.done .t-card {
+        opacity: 0.5;
+      }
+
+      .t-item.done .t-name {
+        text-decoration: line-through;
+        color: var(--ink-ghost);
+      }
+
+      /* Time column */
+      .t-time {
+        width: 36px;
+        flex-shrink: 0;
+        padding-top: 13px;
+        text-align: right;
+        font-size: 9.5px;
+        color: var(--ink-light);
+        line-height: 1.4;
+        font-family: 'Noto Serif TC', serif;
+      }
+
+      /* Node */
+      .t-node-col {
+        width: 32px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 13px;
+      }
+
+      .t-node {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        background: var(--paper);
+        z-index: 2;
+        flex-shrink: 0;
+        position: relative;
+        transition: all 0.25s;
+      }
+
+      .t-node.food {
+        border-color: var(--vermillion);
+      }
+
+      .t-node.sight {
+        border-color: var(--jade);
+      }
+
+      .t-node.night {
+        border-color: var(--indigo);
+      }
+
+      .t-node.snack {
+        border-color: var(--gold);
+      }
+
+      .t-node.travel {
+        border-color: var(--ink-mid);
+      }
+
+      .t-item.done .t-node {
+        background: var(--jade) !important;
+        border-color: var(--jade) !important;
+      }
+
+      .t-item.done .t-node::after {
+        content: '✓';
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: white;
         font-weight: 700;
       }
 
-      .note .hl {
-        color: var(--rust);
-        font-weight: 700;
+      /* Card */
+      .t-card {
+        flex: 1;
+        background: var(--cream);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 11px 12px 10px;
+        margin-left: 8px;
+        box-shadow: var(--shadow-card);
+        cursor: pointer;
+        transition: all 0.15s;
+        position: relative;
+        overflow: hidden;
+        user-select: none;
       }
 
-      .maplink {
+      /* Top left corner fold effect */
+      .t-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 14px 14px 0;
+        border-color: transparent var(--paper) transparent transparent;
+      }
+
+      .t-card:active {
+        transform: scale(0.97);
+        opacity: 0.9;
+      }
+
+      .t-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+
+      .t-name {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink);
+        flex: 1;
+        line-height: 1.4;
+        letter-spacing: 0.5px;
+        transition: all 0.2s;
+      }
+
+      .t-check {
+        width: 20px;
+        height: 20px;
+        border: 1.5px solid var(--line);
+        border-radius: 2px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        transition: all 0.2s;
+      }
+
+      .t-item.done .t-check {
+        background: var(--jade);
+        border-color: var(--jade);
+        color: white;
+      }
+
+      /* Tags */
+      .t-tags {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+      }
+
+      .t-tag {
+        font-size: 9.5px;
+        padding: 2px 8px;
+        border-radius: 1px;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+        border: 1px solid;
+      }
+
+      .t-tag.food {
+        background: #fff0ee;
+        color: var(--vermillion);
+        border-color: rgba(192, 57, 43, 0.3);
+      }
+
+      .t-tag.sight {
+        background: #eef7f2;
+        color: var(--jade);
+        border-color: rgba(45, 106, 79, 0.3);
+      }
+
+      .t-tag.night {
+        background: #eeeef7;
+        color: var(--indigo);
+        border-color: rgba(44, 62, 107, 0.3);
+      }
+
+      .t-tag.snack {
+        background: #fdf8e8;
+        color: var(--gold);
+        border-color: rgba(184, 134, 11, 0.3);
+      }
+
+      .t-tag.travel {
+        background: #f5f0eb;
+        color: var(--ink-mid);
+        border-color: rgba(92, 61, 34, 0.3);
+      }
+
+      /* Note */
+      .t-note {
+        font-size: 11.5px;
+        color: var(--ink-light);
+        line-height: 1.6;
+        margin-bottom: 7px;
+      }
+
+      .t-note .hl {
+        color: var(--vermillion);
+        font-weight: 500;
+      }
+
+      .t-note .ok {
+        color: var(--jade);
+        font-weight: 500;
+      }
+
+      /* Map link */
+      .t-map {
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        font-size: 11px;
+        font-size: 10.5px;
         color: var(--ink-mid);
         text-decoration: none;
-        font-weight: 700;
-        border-bottom: 1.5px solid var(--bg-dark);
-        padding-bottom: 2px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 1px;
+        transition: color 0.15s;
       }
 
-      /* ── TIPS ── */
-      .tips {
-        background: var(--bg-dark);
-        padding: 20px;
-        border-radius: var(--radius);
-        margin: 30px 0;
+      .t-map:active {
+        color: var(--vermillion);
       }
 
-      .tips-ttl {
-        font-family: 'Noto Serif TC';
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--green);
-        margin-bottom: 10px;
+      /* ───── DIVIDER ───── */
+      .section-divider {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        margin: 4px 16px 12px;
+      }
+
+      .section-divider::before,
+      .section-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .section-divider-text {
+        font-size: 10px;
+        color: var(--ink-ghost);
+        letter-spacing: 2px;
+        font-family: 'Noto Serif TC', serif;
+      }
+
+      /* ───── TIPS ───── */
+      .tips-box {
+        margin: 4px 16px 16px;
+        background: rgba(184, 134, 11, 0.06);
+        border: 1px solid rgba(184, 134, 11, 0.25);
+        border-radius: 2px;
+        padding: 13px 14px;
+      }
+
+      .tips-title {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 11px;
+        color: var(--gold);
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .tips-title::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 1px;
+        background: var(--gold);
       }
 
       .tip {
-        font-size: 12px;
+        font-size: 11.5px;
         color: var(--ink-mid);
-        margin-bottom: 6px;
+        line-height: 1.7;
+        padding-left: 14px;
         position: relative;
-        padding-left: 15px;
+        margin-bottom: 2px;
       }
 
       .tip::before {
-        content: "◆";
+        content: '◆';
         position: absolute;
         left: 0;
-        color: var(--green);
-        font-size: 8px;
+        font-size: 6px;
+        top: 5px;
+        color: var(--gold);
+      }
+
+      /* Completion banner */
+      .done-banner {
+        display: none;
+        margin: 8px 16px;
+        background: var(--jade);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 2px;
+        font-family: 'Noto Serif TC', serif;
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-align: center;
       }
     </style>
   </head>
 
   <body>
 
+    <!-- HEADER -->
     <div class="header">
-      <div class="header-title-group">
-        <div class="header-eyebrow">TAINAN · 2026 · SPRING</div>
-        <div class="header-title">台南四日</div>
-        <div class="header-sub">漫步古都 · 食飽行慢</div>
-      </div>
-      <div class="header-actions">
-        <a href="https://forms.gle/YuKQ5xCTQdXjPPy88" target="_blank" class="btn-action">🪙 記帳</a>
-        <a href="https://docs.google.com/spreadsheets/d/1noAXJP1BWEIfJFnvJvaMypjC2u-31xpGR2EBEFyEmbM/edit?usp=sharing"
-          target="_blank" class="btn-action">📊 查看記帳</a>
-      </div>
-    </div>
-
-    <div class="prog-container">
-      <div class="prog-bar-wrap">
-        <div class="prog-track">
-          <div class="prog-fill" id="pf"></div>
+      <div class="header-deco"></div>
+      <div class="header-inner">
+        <div class="header-eyebrow">TAINAN · 2026</div>
+        <div class="header-title">台<span>南</span>四日</div>
+        <div class="header-subtitle">清明連假 · 慢遊古都</div>
+        <div class="header-actions">
+          <a class="hdr-btn hdr-btn-account" href="https://forms.gle/YuKQ5xCTQdXjPPy88" target="_blank">💰 記帳</a>
+          <a class="hdr-btn hdr-btn-sheet"
+            href="https://docs.google.com/spreadsheets/d/1noAXJP1BWEIfJFnvJvaMypjC2u-31xpGR2EBEFyEmbM/edit?usp=sharing"
+            target="_blank">📊 查看記帳</a>
         </div>
-        <span class="prog-count" id="pc">0/30</span>
+        <div class="header-chips">
+          <span class="chip">4/4 六</span>
+          <span class="chip">4/5 日</span>
+          <span class="chip">4/6 一</span>
+          <span class="chip">4/7 二</span>
+        </div>
       </div>
     </div>
 
-    <div class="tabs">
-      <div class="tab active" onclick="goDay(0)"><span class="tab-num">壹</span><span class="tab-lbl">4/4 Sat</span>
+    <!-- PROGRESS -->
+    <div class="progress-strip">
+      <span class="progress-label">行程完成</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="pf"></div>
       </div>
-      <div class="tab" onclick="goDay(1)"><span class="tab-num">貳</span><span class="tab-lbl">4/5 Sun</span></div>
-      <div class="tab" onclick="goDay(2)"><span class="tab-num">參</span><span class="tab-lbl">4/6 Mon</span></div>
-      <div class="tab" onclick="goDay(3)"><span class="tab-num">肆</span><span class="tab-lbl">4/7 Tue</span></div>
+      <span class="progress-count" id="pc">0/0</span>
     </div>
 
-    <!-- ═══ DAY 1 ═══ -->
+    <!-- TABS -->
+    <div class="tabs-wrap">
+      <button class="tab-btn active" onclick="goDay(0)">
+        <span class="tab-day-num">D1</span>
+        <span class="tab-day-label">4/4 六</span>
+      </button>
+      <button class="tab-btn" onclick="goDay(1)">
+        <span class="tab-day-num">D2</span>
+        <span class="tab-day-label">4/5 日</span>
+      </button>
+      <button class="tab-btn" onclick="goDay(2)">
+        <span class="tab-day-num">D3</span>
+        <span class="tab-day-label">4/6 一</span>
+      </button>
+      <button class="tab-btn" onclick="goDay(3)">
+        <span class="tab-day-num">D4</span>
+        <span class="tab-day-label">4/7 二</span>
+      </button>
+      <button class="tab-btn" onclick="goDay(4)">
+        <span class="tab-day-num">🧳</span>
+        <span class="tab-day-label">打包清單</span>
+      </button>
+    </div>
     <div class="day-panel active" id="d0">
-      <div class="day-hd">
-        <div class="day-seal"><span class="seal-zh">壹</span><span class="seal-en">DAY 1</span></div>
-        <div class="day-info-title">市區探索 (4/4)</div>
+      <div class="day-header">
+        <div class="day-seal">
+          <div class="day-seal-num">壹</div>
+          <div class="day-seal-text">DAY 1</div>
+        </div>
+        <div class="day-info">
+          <div class="day-title">市區探索</div>
+          <div class="day-meta">4月4日（六）· 抵達台南</div>
+        </div>
       </div>
-      <div class="warn">
-        <div class="warn-ttl">⚠ 注意事項</div>
+
+      <div class="warn-box">
+        <div class="warn-title">⚠ 注意事項</div>
         <div class="warn-body">
-          · 兩頓午餐間隔不到2小時（西羅殿12:30 → 鼎富發14:30），份量要控制。<br>
-          · 漁光島在安平區，從林百貨出發車程約20分鐘，17:30前要出發。
+          • 兩頓午餐間隔不到 2 小時（西羅殿 12:30 → 鼎富發 14:30），份量要控制。<br>
+          • 漁光島在安平區，從林百貨出發車程約 20 分鐘，17:30 前要出發。
         </div>
       </div>
-      <div class="tl">
-        <div class="ti travel" onclick="toggle(this)">
-          <div class="ti-time">11:00<br>↓<br>11:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+      <div class="timeline">
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">11:00<br>—<br>11:30</div>
+          <div class="t-node-col">
+            <div class="t-node travel"></div>
           </div>
-          <div class="card">
-            <div class="iname">抵達台南火車站</div>
-            <div class="tags"><span class="tag">🚂 交通</span></div><a class="maplink"
-              href="https://maps.google.com/?q=台南火車站" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti travel" onclick="toggle(this)">
-          <div class="ti-time">11:30<br>↓<br>12:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">寄放行李</div>
-            <div class="tags"><span class="tag">🧳 行程</span></div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">抵達台南火車站</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag travel">🚂 交通</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=台南火車站" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">12:30<br>↓<br>13:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">11:30<br>—<br>12:00</div>
+          <div class="t-node-col">
+            <div class="t-node travel"></div>
           </div>
-          <div class="card">
-            <div class="iname">西羅殿牛肉湯</div>
-            <div class="tags"><span class="tag">🥣 午餐</span></div>
-            <div class="note">公園南路98號 · 04:30–13:00 · <span class="ok">週六 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=西羅殿牛肉湯台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">13:30<br>↓<br>14:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">赤崁樓</div>
-            <div class="tags"><span class="tag">🏯 景點</span></div>
-            <div class="note">民族路二段212號 · 08:30–21:30 · 荷治時期古蹟</div><a class="maplink"
-              href="https://maps.google.com/?q=赤崁樓台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">寄放行李</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag travel">🧳 行程</span></div>
           </div>
         </div>
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">14:30<br>↓<br>15:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">12:30<br>—<br>13:00</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">鼎富發豬油拌飯</div>
-            <div class="tags"><span class="tag">🍚 午餐2</span></div>
-            <div class="note">大德街38號 · 10:30–19:30 · <span class="hl">⚠ 距上餐僅1.5小時，少點</span></div><a class="maplink"
-              href="https://maps.google.com/?q=鼎富發台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">16:00<br>↓<br>17:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">台南林百貨</div>
-            <div class="tags"><span class="tag">🏬 景點</span></div>
-            <div class="note">中正路二段63號 · 11:00–21:00 · 1930年代日式百貨，頂樓有神社</div><a class="maplink"
-              href="https://maps.google.com/?q=林百貨台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">西羅殿牛肉湯</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🥣 午餐</span></div>
+            <div class="t-note">公園南路98號 ・ 04:30–13:00 ・ <span class="ok">週六✅</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=西羅殿牛肉湯台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">17:30<br>↓<br>19:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">13:30<br>—<br>14:30</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">漁光島</div>
-            <div class="tags"><span class="tag">🏖️ 景點</span></div>
-            <div class="note">安平區 · 全天開放 · <span class="hl">距林百貨約20分鐘車程</span> · 絕佳夕陽點</div><a class="maplink"
-              href="https://maps.google.com/?q=漁光島台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti night" onclick="toggle(this)">
-          <div class="ti-time">19:00<br>↓<br>21:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">武聖夜市</div>
-            <div class="tags"><span class="tag">🌙 夜市</span></div>
-            <div class="note">武聖路69巷 · 週三五六開 · 17:00–00:00 · <span class="ok">週六 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=武聖夜市台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">赤崁樓</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🏯 景點</span></div>
+            <div class="t-note">民族路二段212號 ・ 08:30–21:30 ・ 荷治時期古蹟，售票參觀</div>
+            <a class="t-map" href="https://maps.google.com/?q=赤崁樓台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">深夜<br>宵夜</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">14:30<br>—<br>15:30</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">永樂牛肉湯</div>
-            <div class="tags"><span class="tag">🥣 宵夜</span></div>
-            <div class="note">國華街三段175號 · 深夜12:00開至隔天凌晨9:00 · <span class="ok">週六 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=永樂牛肉湯台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">鼎富發豬油拌飯</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🍚 午餐2</span></div>
+            <div class="t-note">大德街38號 ・ 10:30–19:30 ・ <span class="hl">⚠ 距上餐僅1.5小時，少點</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=鼎富發台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">16:00<br>—<br>17:00</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">台南林百貨</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🏬 景點</span></div>
+            <div class="t-note">中正路二段63號 ・ 11:00–21:00 ・ 1930年代日式百貨，頂樓有神社</div>
+            <a class="t-map" href="https://maps.google.com/?q=林百貨台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">17:30<br>—<br>19:00</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">漁光島</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🏖️ 景點</span></div>
+            <div class="t-note">安平區 ・ 全天開放 ・ <span class="hl">距林百貨約20分鐘車程</span>・ 絕佳夕陽點</div>
+            <a class="t-map" href="https://maps.google.com/?q=漁光島台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">19:00<br>—<br>21:00</div>
+          <div class="t-node-col">
+            <div class="t-node night"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">武聖夜市</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag night">🌙 夜市</span></div>
+            <div class="t-note">武聖路69巷 ・ 週三五六開 ・ 17:00–00:00 ・ <span class="ok">週六✅</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=武聖夜市台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">深夜<br>宵夜</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">永樂牛肉湯</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🌙 宵夜</span></div>
+            <div class="t-note">國華街三段175號 ・ 深夜12:00開至隔天凌晨9:00 ・ <span class="ok">週六✅</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=永樂牛肉湯台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══ DAY 2 ═══ -->
+    <!-- ══════════════ DAY 2 ══════════════ -->
     <div class="day-panel" id="d1">
-      <div class="day-hd">
-        <div class="day-seal"><span class="seal-zh">貳</span><span class="seal-en">DAY 2</span></div>
-        <div class="day-info-title">遠程一日 (4/5)</div>
+      <div class="day-header">
+        <div class="day-seal">
+          <div class="day-seal-num">貳</div>
+          <div class="day-seal-text">DAY 2</div>
+        </div>
+        <div class="day-info">
+          <div class="day-title">遠程一日</div>
+          <div class="day-meta">4月5日（日）· 台灣歷史博物館</div>
+        </div>
       </div>
-      <div class="warn">
-        <div class="warn-ttl">⚠ 注意事項</div>
-        <div class="warn-body">· <strong>勝利早點</strong>週日開至凌晨4:00，但<strong>週一公休</strong>——需在週日深夜前去。</div>
+
+      <div class="warn-box">
+        <div class="warn-title">⚠ 注意事項</div>
+        <div class="warn-body">
+          • <strong>勝利早點</strong>週日開至凌晨4:00，但<strong>週一公休</strong>——需在跨日前（週日深夜）去，勿拖到週一。<br>
+          • 稲満珈琲13:00才開，性質偏下午茶，非正式午餐，記得安排午餐。
+        </div>
       </div>
-      <div class="tl">
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">10:00<br>↓<br>11:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+      <div class="timeline">
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">10:00<br>—<br>11:00</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">PIANO，PIANO</div>
-            <div class="tags"><span class="tag">☕ 早餐</span></div>
-            <div class="note">週日09:00–14:00 · <span class="ok">✅</span> · 建議事先預約</div><a class="maplink"
-              href="https://maps.google.com/?q=Piano+Piano+台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">11:30<br>↓<br>14:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">國立臺灣歷史博物館</div>
-            <div class="tags"><span class="tag">🏛️ 景點</span></div>
-            <div class="note">安南區 · <span class="ok">週日09:00–17:00 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=國立台灣歷史博物館" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">PIANO，PIANO</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">☕ 早餐</span></div>
+            <div class="t-note">府前路一段342巷19號1樓 ・ 週日09:00–14:00 ・ <span class="ok">✅</span> ・ 建議事先預約</div>
+            <a class="t-map" href="https://maps.google.com/?q=Piano+Piano+台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti snack" onclick="toggle(this)">
-          <div class="ti-time">15:00<br>↓<br>16:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">11:30<br>—<br>14:30</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">稲滿珈琲</div>
-            <div class="tags"><span class="tag">☕ 下午茶</span></div>
-            <div class="note">週日13:00–21:00 · <span class="ok">✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=稲滿珈琲台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">16:30<br>↓<br>17:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">臺南市立圖書館新總館</div>
-            <div class="tags"><span class="tag">📚 景點</span></div>
-            <div class="note"><span class="ok">週日08:30–17:30 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=台南市立圖書館新總館" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">國立臺灣歷史博物館</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🏛️ 景點</span></div>
+            <div class="t-note">安南區長和路一段250號 ・ 週二一公休 ・ <span class="ok">週日09:00–17:00 ✅</span> ・ 建議留2–3小時</div>
+            <a class="t-map" href="https://maps.google.com/?q=國立台灣歷史博物館" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">18:00<br>↓<br>19:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">15:00<br>—<br>16:30</div>
+          <div class="t-node-col">
+            <div class="t-node snack"></div>
           </div>
-          <div class="card">
-            <div class="iname">又又美 FotoShop</div>
-            <div class="tags"><span class="tag">📷 景點</span></div><a class="maplink"
-              href="https://maps.google.com/?q=又又美FotoShop台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti night" onclick="toggle(this)">
-          <div class="ti-time">19:30<br>↓<br>21:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">花園夜市</div>
-            <div class="tags"><span class="tag">🌙 夜市</span></div>
-            <div class="note">週四五六日開 · <span class="ok">週日 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=花園夜市台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">稲満珈琲</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag snack">☕ 下午茶</span></div>
+            <div class="t-note">南源街49巷51號 ・ 週日13:00–21:00 ・ <span class="ok">✅</span> ・ 必點鹹蛋黃巴斯克起司蛋糕</div>
+            <a class="t-map" href="https://maps.google.com/?q=稲満珈琲台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">深夜<br>宵夜</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">16:30<br>—<br>17:30</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">勝利早點</div>
-            <div class="tags"><span class="tag">🥣 宵夜</span></div>
-            <div class="note">勝利路119號 · <span class="hl">⚠ 週一公休，今晚必吃！</span></div><a class="maplink"
-              href="https://maps.google.com/?q=勝利早點台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">臺南市立圖書館新總館</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">📚 景點</span></div>
+            <div class="t-note">永康區劍橋路255號 ・ <span class="ok">週日08:30–17:30 ✅</span> ・ 週一公休 ・ 建築設計打卡必訪</div>
+            <a class="t-map" href="https://maps.google.com/?q=台南市立圖書館新總館" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">18:00<br>—<br>19:00</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">又又美 FotoShop</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">📷 景點</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=又又美FotoShop台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">19:30<br>—<br>21:30</div>
+          <div class="t-node-col">
+            <div class="t-node night"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">花園夜市</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag night">🌙 夜市</span></div>
+            <div class="t-note">海安路三段533號 ・ 週四五六日開 ・ <span class="ok">週日✅</span> ・ 17:00–00:00</div>
+            <a class="t-map" href="https://maps.google.com/?q=花園夜市台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">深夜<br>宵夜</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">勝利早點</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🌙 宵夜</span></div>
+            <div class="t-note">勝利路119號 ・ 週日16:00–凌晨04:00 ・ <span class="hl">⚠ 週一公休，需在週日深夜去！</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=勝利早點台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══ DAY 3 ═══ -->
+    <!-- ══════════════ DAY 3 ══════════════ -->
     <div class="day-panel" id="d2">
-      <div class="day-hd">
-        <div class="day-seal"><span class="seal-zh">參</span><span class="seal-en">DAY 3</span></div>
-        <div class="day-info-title">老城漫步 (4/6)</div>
+      <div class="day-header">
+        <div class="day-seal">
+          <div class="day-seal-num">參</div>
+          <div class="day-seal-text">DAY 3</div>
+        </div>
+        <div class="day-info">
+          <div class="day-title">老城中程</div>
+          <div class="day-meta">4月6日（一）· 市區精華</div>
+        </div>
       </div>
-      <div class="tl">
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">08:00<br>↓<br>09:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+      <div class="warn-box">
+        <div class="warn-title">⚠ 注意事項</div>
+        <div class="warn-body">
+          • 孔廟10:00–10:30只有30分鐘偏短，建議至少留45分鐘。<br>
+          • 銀波布丁位於安平區，從國華街出發需計算交通時間。
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">08:00<br>—<br>09:30</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">阿興虱目魚 + 旗哥牛肉湯</div>
-            <div class="tags"><span class="tag">🍜 早餐</span></div>
-            <div class="note">旗哥：<span class="ok">週一07:00–14:00 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=旗哥牛肉湯台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">阿興虱目魚 + 旗哥牛肉湯</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🍜 早餐</span></div>
+            <div class="t-note">旗哥：中華北路一段126號 ・ <span class="ok">週一07:00–14:00 ✅</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=旗哥牛肉湯台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">10:00<br>↓<br>10:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">10:00<br>—<br>10:30</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">台南孔廟</div>
-            <div class="tags"><span class="tag">🏯 景點</span></div>
-            <div class="note"><span class="hl">⚠ 建議延長至45分鐘</span></div><a class="maplink"
-              href="https://maps.google.com/?q=台南孔廟" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">10:40<br>↓<br>11:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">無名米糕</div>
-            <div class="tags"><span class="tag">🍱 點心</span></div><a class="maplink"
-              href="https://maps.google.com/?q=無名米糕台南孔廟" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">台南孔廟</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🏯 景點</span></div>
+            <div class="t-note">南門路2號 ・ <span class="hl">⚠ 30分鐘偏短，建議延長至45分鐘</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=台南孔廟" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti snack" onclick="toggle(this)">
-          <div class="ti-time">13:30<br>↓<br>14:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">10:40<br>—<br>11:00</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">泉波 IZUMINAMI</div>
-            <div class="tags"><span class="tag">🍦 甜點</span></div>
-            <div class="note"><span class="ok">週一13:00–18:00 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=IZUMINAMI台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">14:30<br>↓<br>15:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">Ryme</div>
-            <div class="tags"><span class="tag">🛍️ 選物</span></div><a class="maplink"
-              href="https://maps.google.com/?q=Ryme台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">無名米糕</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🍱 早餐2</span></div>
+            <div class="t-note">孔廟附近 ・ 台南在地小吃</div>
+            <a class="t-map" href="https://maps.google.com/?q=無名米糕台南孔廟" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">15:30<br>↓<br>16:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">13:30<br>—<br>14:00</div>
+          <div class="t-node-col">
+            <div class="t-node snack"></div>
           </div>
-          <div class="card">
-            <div class="iname">衝極商店</div>
-            <div class="tags"><span class="tag">🛍️ 選物</span></div><a class="maplink"
-              href="https://maps.google.com/?q=衝極商店台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti snack" onclick="toggle(this)">
-          <div class="ti-time">16:30<br>↓<br>18:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">國華街 + 西市場</div>
-            <div class="tags"><span class="tag">🧆 小吃</span></div><a class="maplink"
-              href="https://maps.google.com/?q=國華街台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">泉波 IZUMINAMI</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag snack">🍦 甜點</span></div>
+            <div class="t-note">永福路二段47號 ・ <span class="ok">週一13:00–18:00 ✅</span> ・ 茶口味義式冰淇淋</div>
+            <a class="t-map" href="https://maps.google.com/?q=IZUMINAMI台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti snack" onclick="toggle(this)">
-          <div class="ti-time">18:00<br>↓<br>18:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">14:30<br>—<br>15:00</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">銀波布丁</div>
-            <div class="tags"><span class="tag">🍮 點心</span></div>
-            <div class="note"><span class="ok">週一11:00–20:00 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=銀波布丁台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">Ryme</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🛍️ 選物</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=Ryme台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti night" onclick="toggle(this)">
-          <div class="ti-time">19:30<br>↓<br>21:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">15:30<br>—<br>16:00</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">大東夜市</div>
-            <div class="tags"><span class="tag">🌙 夜市</span></div>
-            <div class="note"><span class="ok">週一 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=大東夜市台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">衝極商店</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🛍️ 選物</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=衝極商店台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">16:30<br>—<br>18:00</div>
+          <div class="t-node-col">
+            <div class="t-node snack"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">國華街 + 西市場</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag snack">🧆 點心</span></div>
+            <div class="t-note">台南老字號小吃聚集地 ・ 蔥抓餅、棺材板、擔仔麵必吃</div>
+            <a class="t-map" href="https://maps.google.com/?q=國華街台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">18:00<br>—<br>18:30</div>
+          <div class="t-node-col">
+            <div class="t-node snack"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">銀波布丁</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag snack">🍮 點心</span></div>
+            <div class="t-note">安平路462號 ・ 11:00–20:00 ・ <span class="ok">週一✅</span> ・ 需從市區前往安平</div>
+            <a class="t-map" href="https://maps.google.com/?q=銀波布丁台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">19:30<br>—<br>21:30</div>
+          <div class="t-node-col">
+            <div class="t-node night"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">大東夜市</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag night">🌙 夜市</span></div>
+            <div class="t-note">林森路一段276號 ・ <span class="ok">週一有開 ✅</span> ・ 18:00–01:00</div>
+            <a class="t-map" href="https://maps.google.com/?q=大東夜市台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══ DAY 4 ═══ -->
+    <!-- ══════════════ DAY 4 ══════════════ -->
     <div class="day-panel" id="d3">
-      <div class="day-hd">
-        <div class="day-seal"><span class="seal-zh">肆</span><span class="seal-en">DAY 4</span></div>
-        <div class="day-info-title">賦歸時刻 (4/7)</div>
+      <div class="day-header">
+        <div class="day-seal">
+          <div class="day-seal-num">肆</div>
+          <div class="day-seal-text">DAY 4</div>
+        </div>
+        <div class="day-info">
+          <div class="day-title">歸途半日</div>
+          <div class="day-meta">4月7日（二）· 14:46 離開</div>
+        </div>
       </div>
-      <div class="tl">
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">07:00<br>↓<br>08:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+      <div class="timeline">
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">07:00<br>—<br>08:00</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">鐵牛早餐</div>
-            <div class="tags"><span class="tag">🥚 早餐</span></div>
-            <div class="note"><span class="ok">週二07:00–12:30 ✅</span></div><a class="maplink"
-              href="https://maps.google.com/?q=鐵牛早餐台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">08:30<br>↓<br>11:00</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">司法博物館（貓道）</div>
-            <div class="tags"><span class="tag">🏛️ 景點</span></div>
-            <div class="note">導覽 11:00 & 16:00</div><a class="maplink" href="https://maps.google.com/?q=台南司法博物館"
-              target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">鐵牛早餐</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🥚 早餐</span></div>
+            <div class="t-note">林森路二段166號 ・ <span class="ok">週二07:00–12:30 ✅</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=鐵牛早餐台南" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti food" onclick="toggle(this)">
-          <div class="ti-time">11:30<br>↓<br>12:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">08:30<br>—<br>11:00</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
           </div>
-          <div class="card">
-            <div class="iname">大丸家</div>
-            <div class="tags"><span class="tag">🍱 午餐</span></div><a class="maplink"
-              href="https://maps.google.com/?q=大丸家台南" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-        <div class="ti sight" onclick="toggle(this)">
-          <div class="ti-time">13:00<br>↓<br>13:30</div>
-          <div class="dot-box">
-            <div class="dot"></div>
-          </div>
-          <div class="card">
-            <div class="iname">許願所</div>
-            <div class="tags"><span class="tag">⛩️ 景點</span></div><a class="maplink"
-              href="https://maps.google.com/?q=許願所台南" target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">司法博物館（貓道）</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">🏛️ 景點</span></div>
+            <div class="t-note">府前路一段307號 ・ <span class="ok">週二09:00–17:00 ✅</span> ・ 免費入場 ・ 導覽時間11:00 &amp; 16:00</div>
+            <a class="t-map" href="https://maps.google.com/?q=台南司法博物館" target="_blank">📍 Google Maps</a>
           </div>
         </div>
-        <div class="ti travel" onclick="toggle(this)">
-          <div class="ti-time">14:46</div>
-          <div class="dot-box">
-            <div class="dot"></div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">11:30<br>—<br>12:30</div>
+          <div class="t-node-col">
+            <div class="t-node food"></div>
           </div>
-          <div class="card">
-            <div class="iname">🚂 返程火車</div>
-            <div class="tags"><span class="tag">🚆 交通</span></div>
-            <div class="note">13:30 務必前往車站</div><a class="maplink" href="https://maps.google.com/?q=台南火車站"
-              target="_blank">📍 Google Maps</a>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">大丸家</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag food">🍱 午餐</span></div>
+            <a class="t-map" href="https://maps.google.com/?q=大丸家台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">13:00<br>—<br>13:30</div>
+          <div class="t-node-col">
+            <div class="t-node sight"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">許願所</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag sight">⛩️ 景點</span></div>
+            <div class="t-note">開山路122巷56弄2號 ・ <span class="ok">週二11:30–21:00 ✅</span> ・ 無人商店風格</div>
+            <a class="t-map" href="https://maps.google.com/?q=許願所台南" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+
+        <div class="t-item" onclick="toggle(this)">
+          <div class="t-time">13:30<br>—<br>14:46</div>
+          <div class="t-node-col">
+            <div class="t-node travel"></div>
+          </div>
+          <div class="t-card">
+            <div class="t-card-top">
+              <div class="t-name">🚂 返回台北</div>
+              <div class="t-check">✓</div>
+            </div>
+            <div class="t-tags"><span class="t-tag travel">🚆 交通</span></div>
+            <div class="t-note">民宿13:30出發 → 車站14:00 → 發車<strong> 14:46</strong> ・ 取行李別忘了！</div>
+            <a class="t-map" href="https://maps.google.com/?q=台南火車站" target="_blank">📍 Google Maps</a>
           </div>
         </div>
       </div>
 
-      <div class="tips">
-        <div class="tips-ttl">💡 行程備忘</div>
-        <div class="tip">司法博物館 09:00 開門，預約貓道導覽請早。</div>
-        <div class="tip">台南天氣炎熱，請做好防曬與防蚊。</div>
+      <div class="section-divider">
+        <span class="section-divider-text">小提醒</span>
+      </div>
+
+      <div class="tips-box">
+        <div class="tips-title">行程備忘</div>
+        <div class="tip">司法博物館導覽08:30進場後若要趕11:00整點導覽，記得先確認</div>
+        <div class="tip">許願所步行至車站約15–20分鐘，計算好緩衝時間</div>
+        <div class="tip">出發前務必回民宿取行李，最遲13:30離開</div>
+        <div class="tip">台南炎熱，記得多補充水分與防曬</div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PACKING LIST ══════════════ -->
+    <div class="pack-panel" id="d4">
+      <div class="pack-header">
+        <div class="pack-seal">
+          <div class="pack-seal-icon">🧳</div>
+        </div>
+        <div>
+          <div class="pack-title">Packing List</div>
+          <div class="pack-meta">出發前確認・勾選完成</div>
+        </div>
+      </div>
+
+      <div class="pack-progress-row">
+        <span class="pack-progress-label">已打包</span>
+        <div class="pack-progress-track">
+          <div class="pack-progress-fill" id="ppf"></div>
+        </div>
+        <span class="pack-progress-count" id="ppc">0/0</span>
+      </div>
+      <button class="pack-reset-btn" onclick="resetPack()">↺ 重置所有勾選</button>
+
+      <!-- 重要物品 + 清潔用品 -->
+      <div class="pack-grid">
+        <div class="pack-section">
+          <div class="pack-section-title">重要物品</div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">錢包</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">鑰匙</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">學生證</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">手機</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">耳機</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">充電器</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">行動電源</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">相機</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">拍立得、底片</span>
+          </div>
+        </div>
+
+        <div class="pack-section">
+          <div class="pack-section-title">清潔用品</div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">毛巾</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">牙刷、牙膏</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">梳子</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">衣架</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">保養品</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">刮鬍刀</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">洗面乳</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">沐浴乳</span>
+          </div>
+          <div class="pack-item" onclick="togglePack(this)">
+            <div class="pack-checkbox">✓</div><span class="pack-item-label">洗/潤髮乳</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 個人用品 (full width, 2-col inside) -->
+      <div class="pack-section" style="margin-bottom:12px;">
+        <div class="pack-section-title" style="display:block;text-align:center;width:100%;margin-bottom:14px;">個人用品
+        </div>
+        <div class="pack-two-col">
+          <div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">筆</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">飾品</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">香水</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">水壺</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">帽子</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">雨傘</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">拖鞋</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">口罩</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">酒精</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">眼藥水</span>
+            </div>
+          </div>
+          <div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">腸胃藥</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">過敏藥</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">感冒藥</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">塑膠袋</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">購物袋</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">防曬乳</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">防蚊液</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">衛生紙、濕紙巾</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">換洗衣物</span>
+            </div>
+            <div class="pack-item" onclick="togglePack(this)">
+              <div class="pack-checkbox">✓</div><span class="pack-item-label">環保餐具</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
       function goDay(i) {
-        document.querySelectorAll('.day-panel').forEach((p, j) => p.classList.toggle('active', i === j));
-        document.querySelectorAll('.tab').forEach((t, j) => t.classList.toggle('active', i === j));
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        updateProg();
+        document.querySelectorAll('.day-panel, .pack-panel').forEach((p, j) => p.classList.toggle('active', i === j));
+        document.querySelectorAll('.tab-btn').forEach((t, j) => t.classList.toggle('active', i === j));
+        if (i < 4) updateProgress();
+        else updatePackProgress();
       }
 
       function toggle(item) {
         item.classList.toggle('done');
-        updateProg();
+        updateProgress();
         save();
       }
 
-      function updateProg() {
-        const all = document.querySelectorAll('.ti').length;
-        const done = document.querySelectorAll('.ti.done').length;
-        const pct = all ? Math.round(done / all * 100) : 0;
+      function updateProgress() {
+        const all = document.querySelectorAll('.t-item');
+        const done = document.querySelectorAll('.t-item.done');
+        const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
         document.getElementById('pf').style.width = pct + '%';
-        document.getElementById('pc').textContent = done + '/' + all;
+        document.getElementById('pc').textContent = done.length + '/' + all.length;
       }
 
       function save() {
-        const s = [...document.querySelectorAll('.ti')].map(el => el.classList.contains('done'));
-        try { localStorage.setItem('tn2026_v4', JSON.stringify(s)); } catch (e) { }
+        const states = [...document.querySelectorAll('.t-item')].map(el => el.classList.contains('done'));
+        try { localStorage.setItem('tn26', JSON.stringify(states)); } catch (e) { }
       }
 
       function load() {
         try {
-          const s = JSON.parse(localStorage.getItem('tn2026_v4') || '[]');
-          document.querySelectorAll('.ti').forEach((el, i) => { if (s[i]) el.classList.add('done'); });
+          const s = JSON.parse(localStorage.getItem('tn26') || '[]');
+          document.querySelectorAll('.t-item').forEach((el, i) => { if (s[i]) el.classList.add('done'); });
         } catch (e) { }
-        updateProg();
+        updateProgress();
+      }
+
+      // ── Packing List ──
+      function togglePack(item) {
+        item.classList.toggle('checked');
+        updatePackProgress();
+        savePack();
+      }
+
+      function updatePackProgress() {
+        const all = document.querySelectorAll('.pack-item');
+        const done = document.querySelectorAll('.pack-item.checked');
+        const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
+        const pf = document.getElementById('ppf');
+        const pc = document.getElementById('ppc');
+        if (pf) pf.style.width = pct + '%';
+        if (pc) pc.textContent = done.length + '/' + all.length;
+      }
+
+      function savePack() {
+        const states = [...document.querySelectorAll('.pack-item')].map(el => el.classList.contains('checked'));
+        try { localStorage.setItem('tn26pack', JSON.stringify(states)); } catch (e) { }
+      }
+
+      function loadPack() {
+        try {
+          const s = JSON.parse(localStorage.getItem('tn26pack') || '[]');
+          document.querySelectorAll('.pack-item').forEach((el, i) => { if (s[i]) el.classList.add('checked'); });
+        } catch (e) { }
+        updatePackProgress();
+      }
+
+      function resetPack() {
+        document.querySelectorAll('.pack-item').forEach(el => el.classList.remove('checked'));
+        updatePackProgress();
+        savePack();
       }
 
       load();
-    </script>
+      loadPack();
 
+    </script>
   </body>
 
 </html>
